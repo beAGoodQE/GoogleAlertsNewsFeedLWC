@@ -1,0 +1,7 @@
+<design:component label="Google Alerts RSS Feed">
+    <design:attribute name="theHeader" label="Feed Header" description="The Header label above your feed" default="Latest News" />
+	<design:attribute name="theUrlField" label="Feed URL Field" description="The field on the current object containing the URL of the RSS Feed (Domain must be included under Remote Sites. MUST be an HTTPS URL)" />    
+	<design:attribute name="theUrl" label="Feed URL" description="The URL of the RSS Feed (Domain must be included under Remote Sites. MUST be an HTTPS URL), leave this blank to use the URL Field instead" />    
+    <design:attribute name="maxNewsStories" label="Maximum News Stories" />   
+    <design:attribute name="displayFormat" label="Display Format" datasource="Carousel,List" />
+</design:component>

@@ -1,0 +1,165 @@
+.THIS {
+    background-color: #fff;
+}
+
+.THIS.niceBox {
+    padding: 1rem 1rem;
+    border-radius: .25rem;
+    border: 1px solid rgb(221, 219, 218);
+}
+
+.THIS .header {
+    text-decoration: none;
+    background: rgb(243, 242, 242);
+    border: 1px solid transparent;
+    color: rgb(8, 7, 7);
+    display: flex;
+}
+
+.THIS .orderedList {
+    display: block;
+    list-style: none;
+    margin: 0;
+}
+
+.THIS .orderedListPadding {
+    padding: 0px 16px;
+}
+
+.THIS .orderedListItem {
+    border-bottom: .125rem solid rgb(243, 242, 242);
+}
+
+.THIS .orderedListArticle {
+    font-size: .8125rem;
+    color: rgb(8, 7, 7);
+    display: flex;
+    margin: .5rem 0;
+}
+
+.THIS .orderedListArticleInner {
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    width: 100%;
+}
+
+.THIS .orderedListArticleHeader {
+    margin: .25rem 0 .125rem;-webkit-line-clamp: 2;
+    overflow: hidden;
+    max-height: 2rem;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-decoration: none;
+    font-size: .8125rem;
+    font-weight: 700;
+    color: rgb(8, 7, 7);
+    word-wrap: break-word;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    display: box;
+    display: -webkit-box;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.THIS .orderedListDate {
+    color: rgb(62, 62, 60);
+    font-size: .75rem;
+    line-height: 1.25;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.THIS .orderedListBody {
+    color: rgb(8, 7, 7);
+    font-size: .75rem;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: .5rem;
+    text-decoration: none;
+}
+
+.THIS .cardOuter {
+    overflow: hidden;
+    width: 100%;
+    height: 180px;
+}
+
+.THIS .unorderedList {
+    display: flex;
+    position: absolute;
+    left:0px;
+}
+
+.THIS .unorderedListItem {
+    margin-left: 0;
+    margin: 0 .25rem; 
+    min-width: 256px;
+}
+
+.THIS .unorderedListArticle {
+    padding: .5rem .5rem;
+    max-width: 256px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: .25rem;
+    border: 1px solid rgb(221, 219, 218);
+    min-width: 256px;height: 180px;
+}
+
+.THIS .unorderedListArticleHeader {
+    font-size: .8125rem;
+    color: rgb(8, 7, 7);
+    display: flex; 
+    margin: 0; 
+    position: relative;
+}
+
+.THIS .unorderedListArticleHeaderInner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.THIS .unorderedListArticleheaderInner2 {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    max-height: 2rem;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    font-size: .8125rem;
+    font-weight: 700;
+    color: rgb(8, 7, 7);
+    word-wrap: break-word;
+    line-height: 1.25;
+    margin-top: .5rem;cursor: pointer;
+}
+
+.THIS .unorderedListArticleContent {
+    margin-top: .125rem;
+    margin-bottom: .5rem;
+    color: rgb(62, 62, 60);
+    font-size: .75rem;
+    line-height: 1.25;
+    cursor: default;
+}
+
+.THIS .unorderedListArticleContentInner {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.THIS .unorderedListArticleLink {
+    color: rgb(8, 7, 7);
+    font-size: .75rem;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

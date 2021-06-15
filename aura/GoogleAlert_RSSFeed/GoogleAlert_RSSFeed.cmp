@@ -1,0 +1,133 @@
+<aura:component controller="RSSFeedCtrl" 
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="theUrlField" type="String" default="Google_Alert_URL__c" access="global"/>
+    <aura:attribute name="theUrl" type="String" default="" access="global"/>
+    <aura:attribute name="theHeader" type="String" default="Latest News" access="global"/>
+    <aura:attribute name="maxNewsStories" type="Integer" default="5" access="global"/>
+    <aura:attribute name="displayFormat" type="String" default="Carousel" access="global"/>    
+    <aura:attribute name="feedItems" type="RSSObject"/>
+    <aura:attribute name="listClosed" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.theUrl}" action="{!c.fetchNews}"/>
+    
+    <aura:if isTrue="{!and(v.theUrlField == '', v.theUrl == '')}">
+        <ui:message title="Warning" severity="warning" closable="false">
+            Please enter a value in either the URL Field attribute or the URL attribute in the Lightning Page Editor.
+        </ui:message>
+    </aura:if>
+    <aura:if isTrue="{!and(v.theUrlField != '', or(v.theUrl == '',v.theUrl == null))}">
+        <ui:message title="Warning" severity="warning" closable="false">
+            The current {!v.sObjectName} record doesn't have a value in the field '{!v.theUrlField}' or the field API name is invalid.
+        </ui:message>
+    </aura:if>
+    <aura:if isTrue="{!and(v.theUrlField != '', and(v.theUrl != '', v.theUrl != null))}">       
+        <div class="niceBox">
+            <!--List Version-->
+            <aura:if isTrue="{!v.displayFormat == 'List'}">
+                <lightning:card >                        
+                    <aura:set attribute="title">
+                        <div class="header" onclick="{!c.closeList}">
+                            <aura:if isTrue="{!v.listClosed}"> 
+                                <lightning:icon iconName="utility:chevronright" size="xx-small" style="width: auto;align-self: center;"  />
+                                <aura:set attribute="else">
+                                    <lightning:icon iconName="utility:chevrondown" size="xx-small" style="width: auto;align-self: center;"  />                                    
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!v.theHeader != ''}">    
+                                &nbsp;{!v.theHeader + ' (' + if(lessthan(v.maxNewsStories, v.feedItems.length), v.maxNewsStories, v.feedItems.length) + ')'}
+                            </aura:if>
+                        </div>
+                    </aura:set>   
+                    <aura:if isTrue="{!!v.listClosed}"> 
+                        <ol class="{!if(empty(v.recordId), 'orderedList orderedListPadding','orderedList')}">
+                            <aura:iteration items="{!v.feedItems}" var="fi" end="{!v.maxNewsStories}">
+                                <li class="orderedListItem">
+                                    <article class="listView articleDesktop">
+                                        <div class="articleContainer">
+                                            <div class="extraWide orderedListArticle" >
+                                                <div class="orderedListArticleInner">
+                                                    <a class="orderedListArticleHeader" href="{!fi.link}" target="_blank" title="{!fi.link}">
+                                                        <aura:unescapedHtml value="{!fi.title}" />
+                                                    </a>
+                                                    <div class="orderedListDate" >
+                                                        <span class="sourceDate" >
+                                                            <lightning:formattedDateTime value="{!fi.published}" 
+                                                                                         year="numeric" 
+                                                                                         month="numeric" 
+                                                                                         day="numeric" 
+                                                                                         hour="2-digit" 
+                                                                                         minute="2-digit" 
+                                                                                         timeZoneName="short" 
+                                                                                         hour12="true"/>
+                                                        </span>
+                                                    </div>
+                                                    <a class="orderedListBody" href="{!fi.link}" target="_blank" >
+                                                        <aura:unescapedHtml value="{!fi.content}" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </li>
+                            </aura:iteration>
+                        </ol>
+                    </aura:if>
+                </lightning:card>
+            </aura:if>
+            <!--Card Version-->
+            <aura:if isTrue="{!v.displayFormat != 'List'}">
+                <lightning:card > 
+                    <aura:set attribute="title">
+                        <lightning:icon iconName="utility:news" size="small"/>
+                        &nbsp;{!v.theHeader}
+                    </aura:set>  
+                    <aura:if isTrue="{!v.feedItems.length > 0}">                        
+                        <div class="cardOuter" >
+                                    <ul aura:id="newsContents" class="unorderedList slds-scrollable_x">
+                                        <aura:iteration items="{!v.feedItems}" var="fi" end="{!v.maxNewsStories}">
+                                            <li class="unorderedListItem">
+                                                <article class="unorderedListArticle">
+                                                    <a class="articleContainer" href="{!fi.link}" target="_blank" title="{!fi.link}" >
+                                                        <div class="unorderedListArticleHeader">
+                                                            <div class="unorderedListArticleHeaderInner">
+                                                                <h3 class="unorderedListArticleHeaderInner2">
+                                                                    <aura:unescapedHtml value="{!fi.title}" />
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="unorderedListArticleContent" >
+                                                        <div class="unorderedListArticleContentInner" >
+                                                            <span >
+                                                                <lightning:formattedDateTime value="{!fi.published}" year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" timeZoneName="short" hour12="true"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <a class="unorderedListArticleLink" href="{!fi.link}" target="_blank" title="{!fi.link}">
+                                                        <aura:unescapedHtml value="{!fi.content}" />
+                                                    </a>
+                                                </article>
+                                            </li>
+                                        </aura:iteration>
+                                    </ul>
+                                </div>
+                        <aura:set attribute="else">
+                            No records returned
+                        </aura:set>
+                    </aura:if>
+                    
+                        <aura:set attribute="footer" >  
+                            <div style="text-align: center">
+                            <lightning:button aura:id="left" iconName="utility:chevronleft" title="Previous" onclick="{! c.doMove }" />
+                            <lightning:button aura:id="right" iconName="utility:chevronright" title="Next" onclick="{! c.doMove }" />
+                        </div>
+                            </aura:set>
+                    
+                    
+                </lightning:card>
+            </aura:if>
+        </div>
+    </aura:if>
+</aura:component>
