@@ -1,2 +1,2 @@
-# GoogleAlertsNewsFeed
-Source Code for the Google Alerts News Feed component on AppExchange
+# GoogleAlertsNewsFeedLWC
+Attempt to convert https://github.com/SalesforceLabs/GoogleAlertsNewsFeed to use LWC instead of Aura
